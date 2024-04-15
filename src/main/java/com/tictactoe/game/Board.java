@@ -54,4 +54,27 @@ public class Board {
         return IntStream.range(0, grid.length)
                 .anyMatch(i -> grid[i] == '_');
     }
+
+    public boolean isWinningMove(char symbol) {
+        return IntStream.range(0, size)
+                .anyMatch(i -> checkRow(i, symbol) || checkColumn(i, symbol))
+                || checkDiagonals(symbol);
+    }
+
+    private boolean checkRow(int row, char symbol) {
+        return IntStream.range(0, size)
+                .allMatch(i -> grid[row * size + i] == symbol);
+    }
+
+    private boolean checkColumn(int column, char symbol) {
+        return IntStream.range(0, size)
+                .allMatch(i -> grid[i * size + column] == symbol);
+    }
+
+    private boolean checkDiagonals(char symbol) {
+        return IntStream.range(0, size)
+                .allMatch(i -> grid[i * size + i] == symbol)
+                || IntStream.range(0, size)
+                        .allMatch(i -> grid[i * size + size - i - 1] == symbol);
+    }
 }
