@@ -5,26 +5,28 @@ import java.util.stream.IntStream;
 public class GameManager {
     private final Board board;
     private final Player[] players;
-    private final String MOVE_MESSAGE;
     private int playerTurn;
+    private final String validMovesMessage;
 
     public GameManager(int boardSize, int numberOfPlayers) {
         this.board = new Board(boardSize);
         this.players = new Player[numberOfPlayers];
         this.playerTurn = 0;
-        this.MOVE_MESSAGE = "Enter your move from 1 to " + boardSize * boardSize + ": ";
+        this.validMovesMessage = "Enter your move from 1 to " + boardSize * boardSize + ": ";
     }
 
     public void startGame() {
         initializePlayers();
-        while (board.isMoveLeft()) {
+        while (true) {
             board.displayBoard();
             System.out.println("Player Turn: " + players[playerTurn]);
-            int position = GameUtils.getPlayerMove(MOVE_MESSAGE);
+            int position = GameUtils.getPlayerMove(validMovesMessage);
             while (!players[playerTurn].makeMove(board, position)) {
-                position = GameUtils.getPlayerMove(MOVE_MESSAGE);
+                position = GameUtils.getPlayerMove(validMovesMessage);
             }
-            evaluateGame();
+            if (isGameOver()) {
+                break;
+            }
             switchPlayerTurn();
         }
     }
@@ -38,7 +40,17 @@ public class GameManager {
         this.playerTurn = (playerTurn + 1) % players.length;
     }
 
-    public void evaluateGame() {
-
+    private boolean isGameOver() {
+        if (board.isWinningMove(players[playerTurn].getSymbol())) {
+            board.displayBoard();
+            System.out.println("Player " + players[playerTurn] + " wins!");
+            return true;
+        }
+        if (!board.isMoveLeft()) {
+            board.displayBoard();
+            System.out.println("Game is a draw!");
+            return true;
+        }
+        return false;
     }
 }
