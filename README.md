@@ -12,7 +12,7 @@
 
 ## Overview
 
-- This is a simple implementation of the classic Tic Tac Toe game in Java. It currently offers two or more players gameplay with board representation and turn management. However, the functionality to determine a winner is still under development.
+- This is a simple implementation of the classic Tic Tac Toe game in Java. It currently offers two or more players gameplay with board representation, turn management, and game evaluation.
 
 ## Features
 
@@ -20,16 +20,16 @@
 - Board of any size
 - Board representation and display
 - Player turns and move validation
-- (Work in Progress) Game evaluation to determine the winner
+- Game evaluation to determine the winner
 
 ## Structure
 
 - The game is divided into four classes located in the `com.tictactoe.game` package:
 
-    1. `Board`: This class represents the game board. It has methods to display the board, update the board with a player's move, check if a move is valid, reset the board, and check if there are moves left.
+    1. `Board`: This class represents the game board. It has methods to display the board, update the board with a player's move, check if a move is valid, reset the board, check if there is move left, and check if there is a winning move.
     2. `Player`: This class represents a player. It has methods to get the player's name and symbol, and make a move on the board.
     3. `GameUtils`: This is a utility class with methods to get player details.
-    4. `GameManager`: This class represents the game itself. It has methods to start the game, initialize players, switch player turns, and evaluate the game (currently under development).
+    4. `GameManager`: This class represents the game itself. It has methods to start the game, initialize players, switch player turns, and evaluate the game.
 
 ## Getting Started
 
@@ -51,7 +51,7 @@ git clone https://github.com/MahmoudAhmed184/Tic-Tac-Toe.git
 
 ## Usage
 
-- The game will prompt you for player names and guide you through turns. Currently, the game won't announce a winner, but that functionality is being developed. 
+- The game will prompt you for player names and guide you through turns. 
 
 ## Contributing
 
