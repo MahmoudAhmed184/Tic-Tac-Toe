@@ -1,18 +1,58 @@
+# Tic Tac Toe Game
+
+- This is a simple implementation of the classic Tic Tac Toe game in Java.
+
+## Table of Contents
+1. [Overview](#overview)
+2. [Features](#features)
+3. [Structure](#structure)
+4. [Getting Started](#getting-started)
+5. [Usage](#usage)
+6. [Contributing](#contributing)
+
+## Overview
+
+- This is a simple implementation of the classic Tic Tac Toe game in Java. It currently offers two or more players gameplay with board representation and turn management. However, the functionality to determine a winner is still under development.
+
+## Features
+
+- Two or more players gameplay
+- Board of any size
+- Board representation and display
+- Player turns and move validation
+- (Work in Progress) Game evaluation to determine the winner
+
+## Structure
+
+- The game is divided into four classes located in the `com.tictactoe.game` package:
+
+    1. `Board`: This class represents the game board. It has methods to display the board, update the board with a player's move, check if a move is valid, reset the board, and check if there are moves left.
+    2. `Player`: This class represents a player. It has methods to get the player's name and symbol, and make a move on the board.
+    3. `GameUtils`: This is a utility class with methods to get player details.
+    4. `GameManager`: This class represents the game itself. It has methods to start the game, initialize players, switch player turns, and evaluate the game (currently under development).
+
 ## Getting Started
 
-Welcome to the VS Code Java world. Here is a guideline to help you get started to write Java code in Visual Studio Code.
+### Prerequisites
 
-## Folder Structure
+- Java Runtime Environment (JRE) 11 or later
 
-The workspace contains two folders by default, where:
+### Installation
 
-- `src\main\java`: the folder to maintain sources
-- `lib`: the folder to maintain dependencies
+1. Clone the repository:
 
-Meanwhile, the compiled output files will be generated in the `bin` folder by default.
+```sh
+git clone https://github.com/MahmoudAhmed184/Tic-Tac-Toe.git
+```
 
-> If you want to customize the folder structure, open `.vscode/settings.json` and update the related settings there.
+2. Open the project in your preferred IDE (e.g., Visual Studio Code).
+3. Open the `Main.java` file.
+4. Run the `Main.java` class to start the game (consult your IDE's specific instructions for running Java programs).
 
-## Dependency Management
+## Usage
 
-The `JAVA PROJECTS` view allows you to manage your dependencies. More details can be found [here](https://github.com/microsoft/vscode-java-dependency#manage-dependencies).
+- The game will prompt you for player names and guide you through turns. Currently, the game won't announce a winner, but that functionality is being developed. 
+
+## Contributing
+
+- Pull requests are welcome. For major changes, please open an issue first to discuss what you would like to change.
