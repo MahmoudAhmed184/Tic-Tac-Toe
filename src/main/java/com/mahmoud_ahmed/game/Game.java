@@ -8,6 +8,7 @@ public class Game {
     private final Console console;
     private final Board board;
     private final PlayerTurnManager turnManager;
+    private final GameEvaluator evaluator;
     private GameState currentState;
 
     public Game(int boardSize, int numberOfPlayers) {
@@ -15,6 +16,7 @@ public class Game {
         this.board = new Board(boardSize);
         this.turnManager = new PlayerTurnManager(numberOfPlayers);
         initializePlayers(numberOfPlayers);
+        this.evaluator = new GameEvaluator();
         this.currentState = GameState.IN_PROGESS;
     }
 
@@ -54,31 +56,11 @@ public class Game {
     }
 
     private void updateGameState() {
-        currentState = evaluateGame(board, turnManager.getCurrentPlayer());
+        currentState = evaluator.evaluateGame(board, turnManager.getCurrentPlayer());
 
         if (currentState == GameState.IN_PROGESS) {
             turnManager.switchToNextPlayer();
         }
-    }
-
-    private GameState evaluateGame(Board board, Player player) {
-        if (hasPlayerWon(player)) {
-            return GameState.WIN;
-        }
-        if (board.isFull()) {
-            return GameState.DRAW;
-        }
-        return GameState.IN_PROGESS;
-    }
-
-    public boolean hasPlayerWon(Player player) {
-        char symbol = player.getSymbol();
-        return IntStream.range(0, board.getSize())
-                .anyMatch(
-                        index -> board.isRowFilledWith(index, symbol)
-                                || board.isColumnFilledWith(index, symbol))
-                || board.isMainDiagonalFilledWith(symbol)
-                || board.isAntiDiagonalFilledWith(symbol);
     }
 
     private void handleGameOver() {
