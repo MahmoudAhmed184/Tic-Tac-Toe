@@ -17,7 +17,7 @@ public class Game {
         this.turnManager = new PlayerTurnManager(numberOfPlayers);
         initializePlayers(numberOfPlayers);
         this.evaluator = new GameEvaluator();
-        this.currentState = GameState.IN_PROGESS;
+        this.currentState = GameState.IN_PROGRESS;
     }
 
     private void initializePlayers(int numberOfPlayers) {
@@ -26,7 +26,7 @@ public class Game {
     }
 
     public void startGame() {
-        while (currentState == GameState.IN_PROGESS) {
+        while (currentState == GameState.IN_PROGRESS) {
             processTurn();
             updateGameState();
         }
@@ -44,7 +44,7 @@ public class Game {
     private void updateGameState() {
         currentState = evaluator.evaluateGame(board, turnManager.getCurrentPlayer());
 
-        if (currentState == GameState.IN_PROGESS) {
+        if (currentState == GameState.IN_PROGRESS) {
             turnManager.switchToNextPlayer();
         }
     }

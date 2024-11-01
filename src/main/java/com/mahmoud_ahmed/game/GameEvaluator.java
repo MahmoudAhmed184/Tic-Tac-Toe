@@ -17,7 +17,7 @@ public class GameEvaluator {
         if (board.isFull()) {
             return GameState.DRAW;
         }
-        return GameState.IN_PROGESS;
+        return GameState.IN_PROGRESS;
     }
 
     private boolean hasPlayerWon(Board board, Player player) {
