@@ -7,20 +7,18 @@ import com.mahmoud_ahmed.ui.*;
 public class Game {
     private final Console console;
     private final Board board;
-    private final Player[] players;
-    private int playerTurn;
+    private final PlayerTurnManager turnManager;
     private GameState currentState;
 
     public Game(int boardSize, int numberOfPlayers) {
         this.console = new Console();
         this.board = new Board(boardSize);
-        this.players = new Player[numberOfPlayers];
-        this.playerTurn = 0;
+        this.turnManager = new PlayerTurnManager(numberOfPlayers);
+        initializePlayers(numberOfPlayers);
         this.currentState = GameState.IN_PROGESS;
     }
 
     public void startGame() {
-        initializePlayers();
         while (currentState == GameState.IN_PROGESS) {
             processTurn();
             updateGameState();
@@ -28,16 +26,17 @@ public class Game {
         handleGameOver();
     }
 
-    private void initializePlayers() {
-        IntStream.range(0, players.length)
-                .forEach(index -> players[index] = console.createPlayer(index));
+    private void initializePlayers(int numberOfPlayers) {
+        IntStream.range(0, numberOfPlayers)
+                .forEach(playerNumber -> turnManager.addPlayer(console.createPlayer(playerNumber)));
     }
 
     private void processTurn() {
         console.displayBoard(board);
-        console.displayPlayerTurn(players[playerTurn]);
+        Player currentPlayer = turnManager.getCurrentPlayer();
+        console.displayPlayerTurn(currentPlayer);
         int position = getValidPosition(board);
-        board.applyMove(position, players[playerTurn].getSymbol());
+        board.applyMove(position, currentPlayer.getSymbol());
     }
 
     public int getValidPosition(Board board) {
@@ -55,10 +54,10 @@ public class Game {
     }
 
     private void updateGameState() {
-        currentState = evaluateGame(board, players[playerTurn]);
+        currentState = evaluateGame(board, turnManager.getCurrentPlayer());
 
         if (currentState == GameState.IN_PROGESS) {
-            switchToNextPlayer();
+            turnManager.switchToNextPlayer();
         }
     }
 
@@ -82,15 +81,11 @@ public class Game {
                 || board.isAntiDiagonalFilledWith(symbol);
     }
 
-    private void switchToNextPlayer() {
-        this.playerTurn = (playerTurn + 1) % players.length;
-    }
-
     private void handleGameOver() {
         console.displayBoard(board);
         switch (currentState) {
             case WIN:
-                console.displayWinner(players[playerTurn]);
+                console.displayWinner(turnManager.getCurrentPlayer());
                 break;
             case DRAW:
                 console.displayDraw();
